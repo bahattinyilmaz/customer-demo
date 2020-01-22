@@ -12,21 +12,21 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@Transactional
 @Service
 public class PersonServiceImpl implements IPersonService, UserDetailsService {
 
-    private final PersonRepository userRepository;
+    @Autowired
+    private  PersonRepository userRepository;
 
     @Autowired
     private BCryptPasswordEncoder bcryptEncoder;
 
-    public PersonServiceImpl(PersonRepository userRepository) {
-        this.userRepository = userRepository;
-    }
 
     @Override
     public UserDetails loadUserByUsername(String username) {
@@ -44,7 +44,7 @@ public class PersonServiceImpl implements IPersonService, UserDetailsService {
     }
 
     @Override
-    public Person findOne(String username) {
+    public Person findByName(String username) {
         return userRepository.findByUserName(username).get();
     }
 

@@ -1,8 +1,7 @@
 package com.crm.domain;
 
-import com.crm.domain.Province;
-import com.crm.domain.SalesChannel;
-import com.crm.domain.Town;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import lombok.ToString;
 
@@ -10,6 +9,9 @@ import javax.persistence.*;
 import java.sql.Date;
 @Data
 @Entity
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Customer{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,24 +21,25 @@ public class Customer{
     private String phoneNumber;
     private String parentsName;
     private String parentsPhoneNumber;
+    private Date conversationDate;
+    private Date returnDate;
+    private Date appointmentDate;
+    private Date agreementDate;
+    private String description;
+    private String school;
+    private String classes;
+    private String education;
+    private String result;
+
     @ToString.Exclude
     @OneToOne
-    @JoinColumn(name = "province_id", referencedColumnName = "id")
-    private Province province;
-    @ToString.Exclude
-    @OneToOne
-    @JoinColumn(name = "town_id", referencedColumnName = "id")
-    private Town town;
-    @ToString.Exclude
-    @OneToOne
-    @JoinColumn(name = "consultant_id", referencedColumnName = "id")
-    private Consultant consultant;
+    @JoinColumn(name = "person_id", referencedColumnName = "id")
+    private Person person;
+
     @ToString.Exclude
     @OneToOne
     @JoinColumn(name = "salesChannel_id", referencedColumnName = "id")
     private SalesChannel salesChannel;
-    private Date lastCallDate;
-    private Boolean isAnAgreement;
+
     private String price;
-    private Boolean isCallAgain;
 }

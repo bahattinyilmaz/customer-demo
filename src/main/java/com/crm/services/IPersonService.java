@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface IPersonService {
     UserDetails loadUserByUsername(String username);
-    Person findOne(String username);
+    Person findByName(String username);
     Person findById(Long id);
     Person save(Person person) ;
     List<Person> findAll();
